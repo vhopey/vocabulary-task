@@ -1,0 +1,31 @@
+{
+  "name": "40378421-vorontsova-nadezhda",
+  "version": "1.0.0",
+  "description": "[Тестовое задание](https://www.notion.so/fundraiseup/4c2121dc756f41d9abbe569d9d36d1f8).",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --mode=development",
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fundraiseup-test/40378421-vorontsova-nadezhda.git"
+  },
+  "keywords": [],
+  "author": "Nadezhda Vorontsova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fundraiseup-test/40378421-vorontsova-nadezhda/issues"
+  },
+  "homepage": "https://github.com/fundraiseup-test/40378421-vorontsova-nadezhda#readme",
+  "dependencies": {
+    "html-webpack-plugin": "^5.5.3",
+    "source-map-loader": "^4.0.1",
+    "ts-loader": "^9.5.0",
+    "typescript": "^5.2.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}
