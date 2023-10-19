@@ -1,11 +1,13 @@
-export const getRandomLetters = (str: string): Array<string> => {
-  //str.split("") & Math.random(words);
-  const result = str.split("");
-  // console.log(result);
-  return result;
-};
+export const getRandomizeArray = (arr: Array<string>) => {
+  let currentIndex = arr.length;
+  let randomIndex = 0;
 
-export const getRandomWords = (words: Array<string>): Array<string> => {
-  //Math.random(words).slice(0, 6);
-  return words.slice(0, 6);
-};
+  while (currentIndex > 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [arr[currentIndex], arr[randomIndex]] = [
+      arr[randomIndex], arr[currentIndex]];
+  }
+
+  return arr;
+}

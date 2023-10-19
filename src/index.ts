@@ -1,45 +1,43 @@
-import { mockData } from "./mock";
-import { getRandomWords, getRandomLetters } from './helpers';
+import Button from './components/Button';
 
-const getData = (words: Array<string>): string[][] => {
-  const result: Array<Array<string>> = [];
-  const randomWords = getRandomWords(words);
+import { listener } from './game';
+import { mockData, config } from "./config";
+import { getRandomizeArray } from './helpers';
+
+import { createStore, state } from './store/store';
+import { reducer, ACTIONS } from './store/reducer';
+
+import { ListWords, MockDataType } from './types';
+
+const getData = (words: MockDataType): ListWords => {
+  const result: ListWords = [];
+  const randomWords = getRandomizeArray(words).splice(0, config.questions);
+
   for (const item of randomWords) {
-    result.push(getRandomLetters(item));
+    result.push(getRandomizeArray(item.split("")));
   }
+
   return result;
 };
 
-const resultData = getData(mockData);
+const main = (): void => {
+  const resultData = getData(mockData);
 
-const renderLetters = () => {
-  //render each letter button
-};
+  const store = createStore(reducer, state);
+  store.dispatch({ type: ACTIONS.SET_CURRENT_WORD, payload: resultData[store.getState().countOfWord] });
 
-const logic = () => {
-  // if it's not correct word that red & errors push 1
-  // if ok - put inside answer
-  // if letters.length = 0 than next quest and push result
-  // + keyboard events
-  // if errors = 3 than view answer & red buttons
-  // timeout and next quest
-  // put all in statistic:
-  // 1) count of words without errors
-  // 2) count of errors
-  // 3) word with a lot errors
-};
-
-const main = () => {
-  const theFirst = resultData[0];
+  const currentWord = store.getState().currentWord.word;
   const letters = document.getElementById("letters");
 
   if(!letters) {
-    return null;
+    return;
   }
-  letters.innerHTML = `<button
-  onClick="${onClickLetter}"> ${theFirst[0]} </button>`;
 
-  return;
+  for (const item of currentWord) {
+    letters.innerHTML += Button(item)
+  }
+
+  listener(currentWord);
 };
 
 main();
