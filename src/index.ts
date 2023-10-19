@@ -4,10 +4,19 @@ import { listener } from './game';
 import { mockData, config } from "./config";
 import { getRandomizeArray } from './helpers';
 
-import { createStore, state } from './store/store';
-import { reducer, ACTIONS } from './store/reducer';
+import { ListWords, MockDataType, StateType } from './types';
 
-import { ListWords, MockDataType } from './types';
+export const state: StateType = {
+  errors: 0,
+  answers: 0,
+  countOfWord: 0,
+  currentWord: {
+    word: [],
+    nextLetter: '',
+    errors: 0
+  },
+  maxErrorsWord: ''
+};
 
 const getData = (words: MockDataType): ListWords => {
   const result: ListWords = [];
@@ -22,11 +31,7 @@ const getData = (words: MockDataType): ListWords => {
 
 const main = (): void => {
   const resultData = getData(mockData);
-
-  const store = createStore(reducer, state);
-  store.dispatch({ type: ACTIONS.SET_CURRENT_WORD, payload: resultData[store.getState().countOfWord] });
-
-  const currentWord = store.getState().currentWord.word;
+  const currentWord = resultData[0];
   const letters = document.getElementById("letters");
 
   if(!letters) {

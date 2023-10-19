@@ -1,16 +1,18 @@
 import { Word, ButtonsEnum } from "./types";
 import Button from "./components/Button";
-
-  // if it's not correct word that red & errors push 1
-  // if ok - put inside answer
-  // if letters.length = 0 than next quest and push result
-  // + keyboard events
-  // if errors = 3 than view answer & red buttons
-  // timeout and next quest
-  // put all in statistic:
-  // 1) count of words without errors
-  // 2) count of errors
-  // 3) word with a lot errors
+// Logic
+/**
+  if it's not correct word that red & errors push 1
+  if ok - put inside answer
+  if letters.length = 0 than next quest and push result
+  + keyboard events
+  if errors = 3 than view answer & red buttons
+  timeout and next quest
+  put all in statistic:
+    1) count of words without errors
+    2) count of errors
+    3) word with a lot errors
+*/
 
 const listenerTagName = "BUTTON";
 
