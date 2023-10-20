@@ -1,6 +1,9 @@
 export type MockDataType = Array<string>;
 export type Word = Array<string>;
-export type ListWords = Array<Word>;
+export type ListWords = Array<{
+  word: string;
+  randomizeWord: Array<string>;
+}>;
 
 export type ConfigType = {
   maxErrors: number;
@@ -11,10 +14,11 @@ export type StateType = {
   errors: number;
   answers: number;
   countOfWord: number;
+  words: ListWords;
   currentWord: {
-    word: Word;
+    word: string;
+    randomizeWord: Word;
     nextLetter: string;
-    errors: number;
   };
   maxErrorsWord: string;
 };
