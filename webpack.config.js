@@ -1,5 +1,5 @@
 const path = require("path");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   devtool: "source-map",
@@ -7,7 +7,7 @@ module.exports = {
   devServer: {
     static: path.resolve(__dirname, "public"),
     hot: true,
-    port: 3000
+    port: 3000,
   },
   module: {
     rules: [
@@ -32,7 +32,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: 'public/index.html',
+      filename: "public/index.html",
     }),
   ],
   output: {
