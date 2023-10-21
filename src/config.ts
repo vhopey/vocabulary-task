@@ -1,4 +1,4 @@
-import { MockDataType, ConfigType, StateType } from './types';
+import { MockDataType, ConfigType, StateType } from "./types";
 
 // export const mockData: MockDataType = [
 //   "apple",
@@ -15,17 +15,11 @@ import { MockDataType, ConfigType, StateType } from './types';
 // ];
 
 // delete
-export const mockData: MockDataType = [
-  "task",
-  "data",
-  "sun",
-  "puk",
-  "keke"
-];
+export const mockData: MockDataType = ["task", "data", "sun", "puk", "keke"];
 
 export const config: ConfigType = {
   maxErrors: 3,
-  questions: 2
+  questions: 2,
 };
 
 export const state: StateType = {
@@ -34,11 +28,11 @@ export const state: StateType = {
   countOfWord: 0,
   words: [],
   currentWord: {
-    word: '',
+    word: "",
     randomizeWord: [],
-    nextLetter: ''
+    nextLetter: "",
   },
-  maxErrorsWord: ''
+  maxErrorsWord: "",
 };
 
 // fix

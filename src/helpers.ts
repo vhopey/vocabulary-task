@@ -1,5 +1,5 @@
-import { state, errors } from './config';
-import { Word } from './types';
+import { state, errors } from "./config";
+import { Word } from "./types";
 
 export const getRandomizeArray = (arr: Array<string>) => {
   let currentIndex = arr.length;
@@ -9,7 +9,9 @@ export const getRandomizeArray = (arr: Array<string>) => {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
     [arr[currentIndex], arr[randomIndex]] = [
-      arr[randomIndex], arr[currentIndex]];
+      arr[randomIndex],
+      arr[currentIndex],
+    ];
   }
 
   return arr;
@@ -23,11 +25,15 @@ export const setCountOfWord = () => {
   state.countOfWord = state.countOfWord + 1;
 };
 
-export const setCurrentWord = (word: string, randomizeWord: Word, nextLetter: string ) => {
+export const setCurrentWord = (
+  word: string,
+  randomizeWord: Word,
+  nextLetter: string,
+) => {
   state.currentWord = {
     word,
     randomizeWord,
-    nextLetter
+    nextLetter,
   };
 };
 

@@ -1,8 +1,8 @@
-import { start } from './game';
+import { start } from "./game";
 import { mockData, config, state } from "./config";
-import { getRandomizeArray } from './helpers';
+import { getRandomizeArray } from "./helpers";
 
-import { ListWords, MockDataType } from './types';
+import { ListWords, MockDataType } from "./types";
 
 const getData = (words: MockDataType): void => {
   const result: ListWords = [];
@@ -11,10 +11,10 @@ const getData = (words: MockDataType): void => {
   for (const item of randomWords) {
     let randomizeWord = item.split("");
 
-    while(randomizeWord.join('') === item) {
+    while (randomizeWord.join("") === item) {
       randomizeWord = getRandomizeArray(item.split(""));
     }
-    
+
     result.push({ word: item, randomizeWord });
   }
 
