@@ -1,4 +1,5 @@
 import { model } from "../model";
+import { Game } from "./Game";
 import { dataController, gameController } from "../controllers";
 
 export const Statistic = {
@@ -6,8 +7,10 @@ export const Statistic = {
     const statistic = gameController.getBlockById("statistic");
     const gameBlock = gameController.getBlockById("game");
 
-    // костыль
-    dataController.getStatistic();
+    removeEventListener("click", Game.letterClickListener);
+    removeEventListener("keydown", Game.letterKeyboardListener);
+
+    dataController.setStatistic();
     gameBlock.remove();
     statistic.classList.remove("hidden_block");
     statistic.innerHTML += `${Statistic.render()}`;

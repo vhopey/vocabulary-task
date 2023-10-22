@@ -9,7 +9,7 @@ export const gameController = {
     Game.init();
     Game.render();
   },
-
+  //move to utils
   getBlockById(id: string): HTMLElement {
     let block = document.getElementById(id);
 
@@ -32,14 +32,7 @@ export const gameController = {
   },
 
   nextLevel() {
-    const letters = this.getBlockById("letters");
-
     dataController.setCountOfWord();
-    //showAnswer
-
-    if (letters.childNodes.length === 0) {
-      dataController.setAnswers();
-    }
 
     if (model.words[model.countOfWord]) {
       Game.render();
@@ -51,9 +44,19 @@ export const gameController = {
 
   showAnswer() {
     const answers = this.getBlockById("answer");
-    const correctLetter = model.currentWord.nextLetter;
+    const letters = this.getBlockById("letters");
+    const word = model.currentWord.word;
 
-    answers.innerHTML += Button(correctLetter, ButtonsEnum.success);
+    //move to game view => render answer?
+    answers.innerHTML = `${word
+      .split("")
+      .map((item) => Button(item, ButtonsEnum.error))
+      .join("")}`;
+    letters.innerHTML = "";
+
+    setTimeout(() => {
+      this.nextLevel();
+    }, 4000);
   },
 
   pushError(target: HTMLElement | null) {
@@ -65,6 +68,7 @@ export const gameController = {
         target.classList.remove(ButtonsEnum.error);
       }, 500);
     }
+
     if (errors.hasOwnProperty(word)) {
       errors[word] = errors[word] + 1;
     } else {

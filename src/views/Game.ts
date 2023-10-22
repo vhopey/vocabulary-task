@@ -19,11 +19,10 @@ export const Game = {
     if (target && target.tagName === listenerTagName) {
       gameController.checkAnswer(target);
 
-      if (
-        letters.childNodes.length === 0 ||
-        errors[model.currentWord.word] >= 3
-      ) {
-        removeEventListener("click", this.letterClickListener);
+      if (errors[model.currentWord.word] >= 3) {
+        gameController.showAnswer();
+      } else if (Array.from(letters.childNodes).length === 0) {
+        dataController.setAnswers();
         gameController.nextLevel();
       }
     }
@@ -40,7 +39,6 @@ export const Game = {
         letters.childNodes.length === 0 ||
         errors[model.currentWord.word] >= 3
       ) {
-        removeEventListener("click", this.letterClickListener);
         gameController.nextLevel();
       }
     } else {

@@ -25,8 +25,24 @@ export const dataController = {
     return result;
   },
 
-  getStatistic() {
-    model.errors = Object.keys(errors).length;
+  setStatistic() {
+    const wordWithError = Object.keys(errors);
+    let allErrors = 0;
+    let maxErrorsWord = wordWithError[0];
+
+    for (const i of Object.values(errors)) {
+      allErrors += i as number;
+    }
+
+    for (const word of wordWithError) {
+      //if  = than which word?
+      if (errors[word] > errors[maxErrorsWord]) {
+        maxErrorsWord = errors[word];
+      }
+    }
+
+    model.errors = allErrors;
+    model.maxErrorsWord = maxErrorsWord;
   },
 
   setCountOfWord() {

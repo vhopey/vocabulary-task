@@ -24,5 +24,5 @@ export const mockWords: MockDataType = ["task", "data", "sun", "puk", "keke"];
 
 export const config: ConfigType = {
   maxErrors: 3,
-  questions: 1,
+  questions: 2,
 };
