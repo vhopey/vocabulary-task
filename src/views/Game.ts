@@ -2,20 +2,20 @@ import { model, errors } from "../model";
 import { dataController, gameController } from "../controllers";
 import { Button } from "./components/Button";
 import { getElementById } from "../utils/domManipulation";
-import { ElementsIds } from "../types";
+import { ElementsIdsEnum } from "../types";
 
 const listenerTagName = "BUTTON";
 
 export const Game = {
   init() {
-    const letters = getElementById(ElementsIds.letters);
+    const letters = getElementById(ElementsIdsEnum.letters);
 
     letters.addEventListener("click", this.letterClickListener);
     document.addEventListener("keydown", this.letterKeyboardListener);
   },
 
   letterClickListener(event: Event) {
-    const letters = getElementById(ElementsIds.letters);
+    const letters = getElementById(ElementsIdsEnum.letters);
     const target = event.target as HTMLElement; // fix
 
     if (target && target.tagName === listenerTagName) {
@@ -31,7 +31,7 @@ export const Game = {
   },
 
   letterKeyboardListener(event: KeyboardEvent) {
-    const letters = getElementById(ElementsIds.letters);
+    const letters = getElementById(ElementsIdsEnum.letters);
     const target = gameController.findTargetByKey(event.key);
 
     if (target && target.tagName === listenerTagName) {
@@ -49,9 +49,9 @@ export const Game = {
   },
 
   render() {
-    const letters = getElementById(ElementsIds.letters);
-    const answers = getElementById(ElementsIds.answers);
-    const questionNumber = getElementById(ElementsIds.questionNumber);
+    const letters = getElementById(ElementsIdsEnum.letters);
+    const answers = getElementById(ElementsIdsEnum.answers);
+    const questionNumber = getElementById(ElementsIdsEnum.questionNumber);
 
     questionNumber.innerHTML = (model.countOfWord + 1).toString();
     dataController.setCurrentWord();

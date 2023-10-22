@@ -1,15 +1,15 @@
 import { model, errors } from "../model";
 import { config, mockWords } from "../config";
 import { getRandomizeArray } from "../utils/randomize";
-import { MockDataType, ListWords } from "../types";
+import { MockDataType, ListWordsType } from "../types";
 
 export const dataController = {
   init() {
     model.words = this.getData(mockWords);
   },
 
-  getData(words: MockDataType): ListWords {
-    const result: ListWords = [];
+  getData(words: MockDataType): ListWordsType {
+    const result: ListWordsType = [];
     const randomWords = getRandomizeArray(words).splice(0, config.questions);
 
     for (const item of randomWords) {
@@ -70,6 +70,6 @@ export const dataController = {
     model.errors = 0;
     model.answers = 0;
     model.maxErrorsWord = "";
-    model.words = [];
+    localStorage.clear();
   },
 };

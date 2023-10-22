@@ -2,7 +2,7 @@ import { model, errors } from "../model";
 import { dataController } from "./data";
 import { Button, Game, Statistic } from "../views";
 import { getElementById } from "../utils/domManipulation";
-import { ButtonsEnum, ElementsIds } from "../types";
+import { ButtonsEnum, ElementsIdsEnum } from "../types";
 
 export const gameController = {
   init() {
@@ -11,7 +11,7 @@ export const gameController = {
   },
 
   checkAnswer(target: HTMLElement) {
-    const answers = getElementById(ElementsIds.answers);
+    const answers = getElementById(ElementsIdsEnum.answers);
 
     if (target.innerText === model.currentWord.nextLetter) {
       this.pushAnswer(target);
@@ -34,8 +34,8 @@ export const gameController = {
   },
 
   showAnswer() {
-    const letters = getElementById(ElementsIds.letters);
-    const answers = getElementById(ElementsIds.answers);
+    const letters = getElementById(ElementsIdsEnum.letters);
+    const answers = getElementById(ElementsIdsEnum.answers);
     const word = model.currentWord.word;
 
     //move to game view => render answer?
@@ -69,7 +69,7 @@ export const gameController = {
 
   findTargetByKey(key: string): HTMLElement | null {
     const lettersChilds = Array.from(
-      getElementById(ElementsIds.letters).childNodes,
+      getElementById(ElementsIdsEnum.letters).childNodes,
     );
 
     for (const item of lettersChilds) {
@@ -84,7 +84,7 @@ export const gameController = {
   },
 
   pushAnswer(target: HTMLElement) {
-    const answers = getElementById(ElementsIds.answers);
+    const answers = getElementById(ElementsIdsEnum.answers);
 
     const correctLetter = model.currentWord.nextLetter;
     target.classList.add(ButtonsEnum.success);
@@ -93,8 +93,8 @@ export const gameController = {
   },
 
   tryAgain() {
-    const gameBlock = getElementById(ElementsIds.gameContainer);
-    const statistic = getElementById(ElementsIds.statistic);
+    const gameBlock = getElementById(ElementsIdsEnum.gameContainer);
+    const statistic = getElementById(ElementsIdsEnum.statistic);
 
     dataController.clearAll();
     dataController.init();

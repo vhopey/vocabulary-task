@@ -2,13 +2,13 @@ import { model } from "../model";
 import { Game } from "./Game";
 import { dataController, gameController } from "../controllers";
 import { getElementById } from "../utils/domManipulation";
-import { ElementsIds } from "../types";
+import { ElementsIdsEnum } from "../types";
 
 export const Statistic = {
   init() {
-    const statistic = getElementById(ElementsIds.statistic);
-    const gameBlock = getElementById(ElementsIds.gameContainer);
-    const letters = getElementById(ElementsIds.letters);
+    const statistic = getElementById(ElementsIdsEnum.statistic);
+    const gameBlock = getElementById(ElementsIdsEnum.gameContainer);
+    const letters = getElementById(ElementsIdsEnum.letters);
 
     letters.removeEventListener("click", Game.letterClickListener);
     document.removeEventListener("keydown", Game.letterKeyboardListener);
@@ -20,7 +20,7 @@ export const Statistic = {
   },
 
   tryAgainListening() {
-    const tryAgainButton = getElementById(ElementsIds.tryAgainButton);
+    const tryAgainButton = getElementById(ElementsIdsEnum.tryAgainButton);
     tryAgainButton.addEventListener("click", gameController.tryAgain);
   },
 

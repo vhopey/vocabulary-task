@@ -1,6 +1,6 @@
 export type MockDataType = Array<string>;
-export type Word = Array<string>;
-export type ListWords = Array<{
+export type WordType = Array<string>;
+export type ListWordsType = Array<{
   word: string;
   randomizeWord: Array<string>;
 }>;
@@ -16,14 +16,7 @@ export enum ButtonsEnum {
   error = "btn-danger",
 }
 
-export type BlocksType = {
-  letters: HTMLElement | null;
-  answers: HTMLElement | null;
-  questionNumber: HTMLElement | null;
-  statistic: HTMLElement | null;
-};
-
-export enum ElementsIds {
+export enum ElementsIdsEnum {
   letters = "letters",
   answers = "answer",
   statistic = "statistic",

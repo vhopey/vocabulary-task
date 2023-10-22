@@ -2,16 +2,9 @@ export const getElementById = (id: string): HTMLElement => {
   let block = document.getElementById(id);
 
   if (!block) {
-    block = createElement(id, "div");
-  }
+    throw new Error("Container doesn't find")
+  };
 
   return block;
 };
 
-const createElement = (id: string, type: string): HTMLElement => {
-  const element = document.createElement(type);
-  element.setAttribute("id", id);
-  document.body.appendChild(element);
-
-  return element;
-};

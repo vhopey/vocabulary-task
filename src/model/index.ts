@@ -1,19 +1,19 @@
-import { ListWords, Word } from "../types";
+import { ListWordsType, WordType } from "../types";
 
-interface ModelType {
+interface IModel {
   errors: number;
   answers: number;
   countOfWord: number;
-  words: ListWords;
+  words: ListWordsType;
   currentWord: {
     word: string;
-    randomizeWord: Word;
+    randomizeWord: WordType;
     nextLetter: string;
   };
   maxErrorsWord: string;
 }
 
-export const model: ModelType = {
+export const model: IModel = {
   errors: 0,
   answers: 0,
   countOfWord: 0,
