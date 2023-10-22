@@ -13,9 +13,9 @@ export const gameController = {
   getBlockById(id: string): HTMLElement {
     let block = document.getElementById(id);
 
-    if(!block) {
-      block = createElement(id, 'div');
-    };
+    if (!block) {
+      block = createElement(id, "div");
+    }
 
     return block;
   },
@@ -23,7 +23,7 @@ export const gameController = {
   checkAnswer(target: HTMLElement) {
     const answers = this.getBlockById("answer");
 
-    if (target.innerText ===  model.currentWord.nextLetter) {
+    if (target.innerText === model.currentWord.nextLetter) {
       this.pushAnswer(target);
       dataController.setNextLetter(answers.childNodes.length);
     } else {
@@ -41,7 +41,7 @@ export const gameController = {
       dataController.setAnswers();
     }
 
-    if(model.words[model.countOfWord]) {
+    if (model.words[model.countOfWord]) {
       Game.render();
     } else {
       Statistic.init();

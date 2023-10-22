@@ -1,5 +1,4 @@
 import { model, errors } from "../model";
-import { Statistic } from "../views";
 import { config, mockWords } from "../config";
 import { getRandomizeArray } from "../utils/randomize";
 import { MockDataType, ListWords, Word } from "../types";
