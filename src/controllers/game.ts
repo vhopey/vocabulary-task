@@ -29,6 +29,7 @@ export const gameController = {
     } else {
       Statistic.init();
       Statistic.render();
+      Statistic.tryAgainListening();
     }
   },
 
@@ -89,5 +90,17 @@ export const gameController = {
     target.classList.add(ButtonsEnum.success);
     target.remove();
     answers.innerHTML += Button(correctLetter, ButtonsEnum.success);
+  },
+
+  tryAgain() {
+    const gameBlock = getElementById(ElementsIds.gameContainer);
+    const statistic = getElementById(ElementsIds.statistic);
+
+    dataController.clearAll();
+    dataController.init();
+    gameController.init();
+    statistic.innerHTML = "";
+    statistic.classList.add("hidden");
+    gameBlock.classList.remove("hidden");
   },
 };

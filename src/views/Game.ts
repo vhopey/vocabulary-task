@@ -29,29 +29,22 @@ export const Game = {
       }
     }
   },
-  //check it
+
   letterKeyboardListener(event: KeyboardEvent) {
     const letters = getElementById(ElementsIds.letters);
     const target = gameController.findTargetByKey(event.key);
-    const isMaxErr = errors[model.currentWord.word] >= 3;
-
-    if (!target) {
-      gameController.pushError(null);
-    }
-
-    if (isMaxErr) {
-      gameController.showAnswer();
-    }
 
     if (target && target.tagName === listenerTagName) {
       gameController.checkAnswer(target);
+    } else {
+      gameController.pushError(null);
+    }
 
-      if (isMaxErr) {
-        gameController.showAnswer();
-      } else if (Array.from(letters.childNodes).length === 0) {
-        dataController.setAnswers();
-        gameController.nextLevel();
-      }
+    if (errors[model.currentWord.word] >= 3) {
+      gameController.showAnswer();
+    } else if (Array.from(letters.childNodes).length === 0) {
+      dataController.setAnswers();
+      gameController.nextLevel();
     }
   },
 

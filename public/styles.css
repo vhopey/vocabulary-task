@@ -11,6 +11,7 @@ body {
 .statistic {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .letter_button {
@@ -18,10 +19,11 @@ body {
   height: 50px;
 }
 
-.hidden_block {
-  display: none !important;
+.try_again_btn {
+  width: 200px;
+  height: 50px;
 }
 
-.visible {
-  display: block !important;
+.hidden {
+  display: none !important;
 }

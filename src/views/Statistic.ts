@@ -8,24 +8,25 @@ export const Statistic = {
   init() {
     const statistic = getElementById(ElementsIds.statistic);
     const gameBlock = getElementById(ElementsIds.gameContainer);
+    const letters = getElementById(ElementsIds.letters);
 
-    removeEventListener("click", Game.letterClickListener);
-    removeEventListener("keydown", Game.letterKeyboardListener);
+    letters.removeEventListener("click", Game.letterClickListener);
+    document.removeEventListener("keydown", Game.letterKeyboardListener);
 
     dataController.setStatistic();
-    gameBlock.remove();
-    statistic.classList.remove("hidden_block");
+    gameBlock.classList.add("hidden");
+    statistic.classList.remove("hidden");
     statistic.innerHTML += `${Statistic.render()}`;
   },
 
-  tryAgain() {
-    dataController.clearAll();
-    dataController.init();
-    gameController.init();
+  tryAgainListening() {
+    const tryAgainButton = getElementById(ElementsIds.tryAgainButton);
+    tryAgainButton.addEventListener("click", gameController.tryAgain);
   },
 
   render() {
     return `<div class="lead mb-1 statistic">
+      <h2 class="mb-5">Statistic</h2>
       <span> Answers: ${model.answers} </span>
       <span> Errors: ${model.errors} </span>
       <span>${
@@ -33,8 +34,8 @@ export const Statistic = {
           ? `The most errors word: ${model.maxErrorsWord}`
           : ""
       }  </span>
+      <button type="button" id="try_again_btn" class="btn btn-lg try_again_btn"> Try again </button>
     </div>
-    <button type="button" id="try_again_btn" class="btn btn-lg "> Try again </button>
     `;
   },
 };

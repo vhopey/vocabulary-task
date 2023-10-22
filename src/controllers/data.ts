@@ -70,5 +70,6 @@ export const dataController = {
     model.errors = 0;
     model.answers = 0;
     model.maxErrorsWord = "";
+    model.words = [];
   },
 };
