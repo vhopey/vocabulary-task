@@ -64,4 +64,11 @@ export const dataController = {
   setAnswers() {
     model.answers += 1;
   },
+
+  clearAll() {
+    model.countOfWord = 0;
+    model.errors = 0;
+    model.answers = 0;
+    model.maxErrorsWord = "";
+  },
 };

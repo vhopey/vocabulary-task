@@ -1,7 +1,7 @@
 import { model, errors } from "../model";
 import { dataController } from "./data";
 import { Button, Game, Statistic } from "../views";
-import { createElement } from "../utils/createElement";
+import { getBlockById } from "../utils/domManipulation";
 import { ButtonsEnum } from "../types";
 
 export const gameController = {
@@ -9,19 +9,9 @@ export const gameController = {
     Game.init();
     Game.render();
   },
-  //move to utils
-  getBlockById(id: string): HTMLElement {
-    let block = document.getElementById(id);
-
-    if (!block) {
-      block = createElement(id, "div");
-    }
-
-    return block;
-  },
 
   checkAnswer(target: HTMLElement) {
-    const answers = this.getBlockById("answer");
+    const answers = getBlockById("answer");
 
     if (target.innerText === model.currentWord.nextLetter) {
       this.pushAnswer(target);
@@ -43,8 +33,8 @@ export const gameController = {
   },
 
   showAnswer() {
-    const answers = this.getBlockById("answer");
-    const letters = this.getBlockById("letters");
+    const letters = getBlockById("letters");
+    const answers = getBlockById("answer");
     const word = model.currentWord.word;
 
     //move to game view => render answer?
@@ -77,12 +67,21 @@ export const gameController = {
   },
 
   findTargetByKey(key: string): HTMLElement | null {
-    // add find target
+    const lettersChilds = Array.from(getBlockById("letters").childNodes);
+
+    for (const item of lettersChilds) {
+      const formatStr = item.textContent?.replace(/\s/g, "");
+
+      if (formatStr === key) {
+        return item as HTMLElement;
+      }
+    }
+
     return null;
   },
 
   pushAnswer(target: HTMLElement) {
-    const answers = this.getBlockById("answer");
+    const answers = getBlockById("answer");
 
     const correctLetter = model.currentWord.nextLetter;
     target.classList.add(ButtonsEnum.success);

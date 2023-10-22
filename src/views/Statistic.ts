@@ -1,11 +1,12 @@
 import { model } from "../model";
 import { Game } from "./Game";
 import { dataController, gameController } from "../controllers";
+import { getBlockById } from "../utils/domManipulation";
 
 export const Statistic = {
   init() {
-    const statistic = gameController.getBlockById("statistic");
-    const gameBlock = gameController.getBlockById("game");
+    const statistic = getBlockById("statistic");
+    const gameBlock = getBlockById("game");
 
     removeEventListener("click", Game.letterClickListener);
     removeEventListener("keydown", Game.letterKeyboardListener);
@@ -16,11 +17,23 @@ export const Statistic = {
     statistic.innerHTML += `${Statistic.render()}`;
   },
 
+  tryAgain() {
+    dataController.clearAll();
+    dataController.init();
+    gameController.init();
+  },
+
   render() {
-    return `<div>
-      Answers: ${model.answers},
-      Errors: ${model.errors}
-      ${model.maxErrorsWord && `,Maximum erorrs word: ${model.maxErrorsWord}`}
-    </div>`;
+    return `<div class="lead mb-1 statistic">
+      <span> Answers: ${model.answers} </span>
+      <span> Errors: ${model.errors} </span>
+      <span>${
+        model.maxErrorsWord?.length
+          ? `The most errors word: ${model.maxErrorsWord}`
+          : ""
+      }  </span>
+    </div>
+    <button type="button" id="try-again-btn" class="btn btn-lg "> Try again </button>
+    `;
   },
 };
