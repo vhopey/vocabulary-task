@@ -8,6 +8,12 @@ body {
   gap: 10px;
 }
 
+.unsavedChanges {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
 .statistic {
   display: flex;
   flex-direction: column;

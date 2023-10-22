@@ -1,19 +1,29 @@
 import { model, errors } from "../model";
 import { dataController } from "./data";
-import { Button, Game, Statistic } from "../views";
-import { getElementById } from "../utils/domManipulation";
+import { Button, Game, Statistic, UnsavedChanges } from "../views";
+import { getElementById } from "../utils";
 import { ButtonsEnum, ElementsIdsEnum } from "../types";
 
 export const gameController = {
-  init() {
+  init(): void {
     Game.init();
     Game.render();
+    // const hasSavedData = dataController.checkSavedData();
+
+    // if(hasSavedData) {
+    //   UnsavedChanges.init;
+    //   UnsavedChanges.render;
+    // } else {
+    //   Game.init();
+    //   Game.render();
+    // }
   },
 
-  checkAnswer(target: HTMLElement) {
+  checkAnswer(target: HTMLElement): void {
     const answers = getElementById(ElementsIdsEnum.answers);
+    const currentWord = dataController.getCurrentWord();
 
-    if (target.innerText === model.currentWord.nextLetter) {
+    if (target.innerText === currentWord.nextLetter) {
       this.pushAnswer(target);
       dataController.setNextLetter(answers.childNodes.length);
     } else {
@@ -21,10 +31,12 @@ export const gameController = {
     }
   },
 
-  nextLevel() {
+  nextLevel(): void {
     dataController.setCountOfWord();
+    const words = dataController.getWordList();
+    const numberOfQuestion = dataController.getNumberOfQuestion();
 
-    if (model.words[model.countOfWord]) {
+    if (words[numberOfQuestion]) {
       Game.render();
     } else {
       Statistic.init();
@@ -33,10 +45,10 @@ export const gameController = {
     }
   },
 
-  showAnswer() {
+  showAnswer(): void {
     const letters = getElementById(ElementsIdsEnum.letters);
     const answers = getElementById(ElementsIdsEnum.answers);
-    const word = model.currentWord.word;
+    const word = model.data.currentWord.word;
 
     //move to game view => render answer?
     answers.innerHTML = `${word
@@ -50,8 +62,8 @@ export const gameController = {
     }, 4000);
   },
 
-  pushError(target: HTMLElement | null) {
-    const word = model.currentWord.word;
+  pushError(target: HTMLElement | null): void {
+    const { word: currentWord } = dataController.getCurrentWord();
 
     if (target) {
       target.classList.add(ButtonsEnum.error);
@@ -60,10 +72,10 @@ export const gameController = {
       }, 500);
     }
 
-    if (errors.hasOwnProperty(word)) {
-      errors[word] = errors[word] + 1;
+    if (errors.hasOwnProperty(currentWord)) {
+      errors[currentWord] = errors[currentWord] + 1;
     } else {
-      errors[word] = 1;
+      errors[currentWord] = 1;
     }
   },
 
@@ -76,6 +88,7 @@ export const gameController = {
       const formatStr = item.textContent?.replace(/\s/g, "");
 
       if (formatStr === key) {
+        // fix
         return item as HTMLElement;
       }
     }
@@ -83,16 +96,16 @@ export const gameController = {
     return null;
   },
 
-  pushAnswer(target: HTMLElement) {
+  pushAnswer(target: HTMLElement): void {
     const answers = getElementById(ElementsIdsEnum.answers);
+    const { nextLetter: correctLetter } = dataController.getCurrentWord();
 
-    const correctLetter = model.currentWord.nextLetter;
     target.classList.add(ButtonsEnum.success);
     target.remove();
     answers.innerHTML += Button(correctLetter, ButtonsEnum.success);
   },
 
-  tryAgain() {
+  tryAgain(): void {
     const gameBlock = getElementById(ElementsIdsEnum.gameContainer);
     const statistic = getElementById(ElementsIdsEnum.statistic);
 

@@ -1,7 +1,7 @@
 import { model } from "../model";
 import { Game } from "./Game";
 import { dataController, gameController } from "../controllers";
-import { getElementById } from "../utils/domManipulation";
+import { getElementById } from "../utils";
 import { ElementsIdsEnum } from "../types";
 
 export const Statistic = {
@@ -25,13 +25,15 @@ export const Statistic = {
   },
 
   render() {
+    const { answers, errors, maxErrorsWord } = dataController.getStatistic();
+
     return `<div class="lead mb-1 statistic">
       <h2 class="mb-5">Statistic</h2>
-      <span> Answers: ${model.answers} </span>
-      <span> Errors: ${model.errors} </span>
+      <span> Answers: ${answers} </span>
+      <span> Errors: ${errors} </span>
       <span>${
-        model.maxErrorsWord?.length
-          ? `The most errors word: ${model.maxErrorsWord}`
+        maxErrorsWord?.length
+          ? `The most errors word: ${maxErrorsWord}`
           : ""
       }  </span>
       <button type="button" id="try_again_btn" class="btn btn-lg try_again_btn"> Try again </button>

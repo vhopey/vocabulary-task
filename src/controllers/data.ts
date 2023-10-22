@@ -1,11 +1,11 @@
 import { model, errors } from "../model";
 import { config, mockWords } from "../config";
-import { getRandomizeArray } from "../utils/randomize";
+import { getRandomizeArray } from "../utils";
 import { MockDataType, ListWordsType } from "../types";
 
 export const dataController = {
-  init() {
-    model.words = this.getData(mockWords);
+  init(): void {
+    model.data.words = this.getData(mockWords);
   },
 
   getData(words: MockDataType): ListWordsType {
@@ -25,6 +25,42 @@ export const dataController = {
     return result;
   },
 
+  checkSavedData(): boolean {
+    const hasSavedData = localStorage.getItem("hasSavedData");
+
+    if(hasSavedData && hasSavedData === "true") {
+      return true;
+    }
+
+    return false;
+  },
+
+  getSavedData(): void {
+    const storageModel = localStorage.getItem("model");
+
+    if(storageModel) {
+      model.data = JSON.parse(storageModel).data;
+      model.statistic = JSON.parse(storageModel).statistic;
+    }
+  },
+
+  getCurrentWord() {
+    return model.data.currentWord;
+  },
+
+  getWordList() {
+    return model.data.words;
+  },
+
+  getNumberOfQuestion() {
+    return model.data.numberOfQuestion;
+  },
+
+  getStatistic() {
+    return model.statistic;
+  },
+
+  // fix after answer
   setStatistic() {
     const wordWithError = Object.keys(errors);
     let allErrors = 0;
@@ -35,41 +71,61 @@ export const dataController = {
     }
 
     for (const word of wordWithError) {
-      //if  = than which word?
       if (errors[word] > errors[maxErrorsWord]) {
         maxErrorsWord = errors[word];
       }
     }
 
-    model.errors = allErrors;
-    model.maxErrorsWord = maxErrorsWord;
+    model.statistic.errors = allErrors;
+    model.statistic.maxErrorsWord = maxErrorsWord;
   },
 
   setCountOfWord() {
-    model.countOfWord = model.countOfWord + 1;
+    model.data.numberOfQuestion = model.data.numberOfQuestion + 1;
   },
 
-  setCurrentWord() {
-    model.currentWord = {
-      word: model.words[model.countOfWord].word,
-      randomizeWord: model.words[model.countOfWord].randomizeWord,
-      nextLetter: model.words[model.countOfWord].word[0],
+  setCurrentWord(): void {
+    const currentWord = model.data.words[model.data.numberOfQuestion];
+    model.data.currentWord = {
+      word: currentWord.word,
+      randomizeWord: currentWord.randomizeWord,
+      nextLetter: currentWord.word[0],
     };
   },
 
-  setNextLetter(position: number) {
-    model.currentWord.nextLetter = model.currentWord.word[position];
+  setNextLetter(position: number): void {
+    const currentWord = model.data.words[model.data.numberOfQuestion];
+    model.data.currentWord.nextLetter = currentWord.word[position];
   },
 
-  setAnswers() {
-    model.answers += 1;
+  setAnswers(): void {
+    model.statistic.answers += 1;
   },
 
-  clearAll() {
-    model.countOfWord = 0;
-    model.errors = 0;
-    model.answers = 0;
-    model.maxErrorsWord = "";
+  saveDataToLocalStorage(): null {
+    window.localStorage.setItem("model", JSON.stringify(model));
+    window.localStorage.setItem("hasSavedData", "true");
+
+    return null;
+  },
+
+  clearAll(): void {
+    model.data ={
+      words: [],
+      currentWord: {
+        word: "",
+        randomizeWord: [],
+        nextLetter: "",
+      },
+      numberOfQuestion: 0,
+    },
+
+    model.statistic = {
+      errors: 0,
+      answers: 0,
+      maxErrorsWord: ""
+    };
+
     localStorage.clear();
   },
 };

@@ -1,3 +1,13 @@
+export const getElementById = (id: string): HTMLElement => {
+  let block = document.getElementById(id);
+
+  if (!block) {
+    throw new Error("Container doesn't find")
+  };
+
+  return block;
+};
+
 export const getRandomizeArray = (arr: Array<string>) => {
   let resultArr = [...arr];
   let currentIndex = arr.length;
