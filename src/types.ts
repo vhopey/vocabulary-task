@@ -10,21 +10,15 @@ export type ConfigType = {
   questions: number;
 };
 
-export type StateType = {
-  errors: number;
-  answers: number;
-  countOfWord: number;
-  words: ListWords;
-  currentWord: {
-    word: string;
-    randomizeWord: Word;
-    nextLetter: string;
-  };
-  maxErrorsWord: string;
-};
-
 export enum ButtonsEnum {
   primary = "btn-primary",
   success = "btn-success",
-  error = "btn-danger"
+  error = "btn-danger",
+}
+
+export type BlocksType = {
+  letters: HTMLElement | null;
+  answers: HTMLElement | null;
+  numberOfQuestion: HTMLElement | null;
+  statistic: HTMLElement | null;
 };

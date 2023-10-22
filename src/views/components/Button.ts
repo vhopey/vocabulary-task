@@ -1,10 +1,8 @@
-import { ButtonsEnum } from "../types";
+import { ButtonsEnum } from "../../types";
 
-const Button = (
+export const Button = (
   letter: string,
   type: ButtonsEnum = ButtonsEnum.primary,
 ): string => {
   return `<button type="button" class="btn ${type} btn-lg letter_button"> ${letter} </button>`;
 };
-
-export default Button;

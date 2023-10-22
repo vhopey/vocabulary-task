@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2022",
     "module": "ESNEXT",
     "rootDir": "./src",
+    "baseUrl": "./src",
     "strict": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
