@@ -19,6 +19,15 @@ export enum ButtonsEnum {
 export type BlocksType = {
   letters: HTMLElement | null;
   answers: HTMLElement | null;
-  numberOfQuestion: HTMLElement | null;
+  questionNumber: HTMLElement | null;
   statistic: HTMLElement | null;
 };
+
+export enum ElementsIds {
+  letters = "letters",
+  answers = "answer",
+  statistic = "statistic",
+  tryAgainButton = "try_again_btn",
+  questionNumber = "current_question_number",
+  gameContainer = "game",
+}

@@ -1,20 +1,21 @@
 import { model, errors } from "../model";
 import { dataController, gameController } from "../controllers";
 import { Button } from "./components/Button";
-import { getBlockById } from "../utils/domManipulation";
+import { getElementById } from "../utils/domManipulation";
+import { ElementsIds } from "../types";
 
 const listenerTagName = "BUTTON";
 
 export const Game = {
   init() {
-    const letters = getBlockById("letters");
+    const letters = getElementById(ElementsIds.letters);
 
     letters.addEventListener("click", this.letterClickListener);
     document.addEventListener("keydown", this.letterKeyboardListener);
   },
 
   letterClickListener(event: Event) {
-    const letters = getBlockById("letters");
+    const letters = getElementById(ElementsIds.letters);
     const target = event.target as HTMLElement; // fix
 
     if (target && target.tagName === listenerTagName) {
@@ -30,7 +31,7 @@ export const Game = {
   },
   //check it
   letterKeyboardListener(event: KeyboardEvent) {
-    const letters = getBlockById("letters");
+    const letters = getElementById(ElementsIds.letters);
     const target = gameController.findTargetByKey(event.key);
     const isMaxErr = errors[model.currentWord.word] >= 3;
 
@@ -55,11 +56,11 @@ export const Game = {
   },
 
   render() {
-    const letters = getBlockById("letters");
-    const answers = getBlockById("answer");
-    const numberOfQuestion = getBlockById("current_question");
+    const letters = getElementById(ElementsIds.letters);
+    const answers = getElementById(ElementsIds.answers);
+    const questionNumber = getElementById(ElementsIds.questionNumber);
 
-    numberOfQuestion.innerHTML = (model.countOfWord + 1).toString();
+    questionNumber.innerHTML = (model.countOfWord + 1).toString();
     dataController.setCurrentWord();
     answers.innerHTML = "";
 

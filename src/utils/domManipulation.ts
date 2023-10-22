@@ -1,4 +1,4 @@
-export const getBlockById = (id: string): HTMLElement => {
+export const getElementById = (id: string): HTMLElement => {
   let block = document.getElementById(id);
 
   if (!block) {

@@ -1,8 +1,8 @@
 import { model, errors } from "../model";
 import { dataController } from "./data";
 import { Button, Game, Statistic } from "../views";
-import { getBlockById } from "../utils/domManipulation";
-import { ButtonsEnum } from "../types";
+import { getElementById } from "../utils/domManipulation";
+import { ButtonsEnum, ElementsIds } from "../types";
 
 export const gameController = {
   init() {
@@ -11,7 +11,7 @@ export const gameController = {
   },
 
   checkAnswer(target: HTMLElement) {
-    const answers = getBlockById("answer");
+    const answers = getElementById(ElementsIds.answers);
 
     if (target.innerText === model.currentWord.nextLetter) {
       this.pushAnswer(target);
@@ -33,8 +33,8 @@ export const gameController = {
   },
 
   showAnswer() {
-    const letters = getBlockById("letters");
-    const answers = getBlockById("answer");
+    const letters = getElementById(ElementsIds.letters);
+    const answers = getElementById(ElementsIds.answers);
     const word = model.currentWord.word;
 
     //move to game view => render answer?
@@ -67,7 +67,9 @@ export const gameController = {
   },
 
   findTargetByKey(key: string): HTMLElement | null {
-    const lettersChilds = Array.from(getBlockById("letters").childNodes);
+    const lettersChilds = Array.from(
+      getElementById(ElementsIds.letters).childNodes,
+    );
 
     for (const item of lettersChilds) {
       const formatStr = item.textContent?.replace(/\s/g, "");
@@ -81,7 +83,7 @@ export const gameController = {
   },
 
   pushAnswer(target: HTMLElement) {
-    const answers = getBlockById("answer");
+    const answers = getElementById(ElementsIds.answers);
 
     const correctLetter = model.currentWord.nextLetter;
     target.classList.add(ButtonsEnum.success);

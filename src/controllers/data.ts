@@ -1,7 +1,7 @@
 import { model, errors } from "../model";
 import { config, mockWords } from "../config";
 import { getRandomizeArray } from "../utils/randomize";
-import { MockDataType, ListWords, Word } from "../types";
+import { MockDataType, ListWords } from "../types";
 
 export const dataController = {
   init() {

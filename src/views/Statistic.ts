@@ -1,12 +1,13 @@
 import { model } from "../model";
 import { Game } from "./Game";
 import { dataController, gameController } from "../controllers";
-import { getBlockById } from "../utils/domManipulation";
+import { getElementById } from "../utils/domManipulation";
+import { ElementsIds } from "../types";
 
 export const Statistic = {
   init() {
-    const statistic = getBlockById("statistic");
-    const gameBlock = getBlockById("game");
+    const statistic = getElementById(ElementsIds.statistic);
+    const gameBlock = getElementById(ElementsIds.gameContainer);
 
     removeEventListener("click", Game.letterClickListener);
     removeEventListener("keydown", Game.letterKeyboardListener);
@@ -33,7 +34,7 @@ export const Statistic = {
           : ""
       }  </span>
     </div>
-    <button type="button" id="try-again-btn" class="btn btn-lg "> Try again </button>
+    <button type="button" id="try_again_btn" class="btn btn-lg "> Try again </button>
     `;
   },
 };
