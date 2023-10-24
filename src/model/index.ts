@@ -14,10 +14,11 @@ interface ModelInterface {
     errors: number;
     answers: number;
     maxErrorsWord: string;
-  }
+  },
+  errors: {}
 };
 
-export const model: ModelInterface = {
+export const initialModel: ModelInterface = {
   data: {
     words: [],
     currentWord: {
@@ -31,8 +32,9 @@ export const model: ModelInterface = {
     errors: 0,
     answers: 0,
     maxErrorsWord: ""
-  }
+  },
+  errors: {}
 };
 
-// fix
-export const errors: any = {};
+export const model = JSON.parse(JSON.stringify(initialModel));
+

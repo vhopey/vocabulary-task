@@ -1,4 +1,4 @@
-import { model, errors } from "../model";
+import { model, initialModel } from "../model";
 import { config, mockWords } from "../config";
 import { getRandomizeArray } from "../utils";
 import { MockDataType, ListWordsType } from "../types";
@@ -60,8 +60,8 @@ export const dataController = {
     return model.statistic;
   },
 
-  // fix after answer
   setStatistic() {
+    const errors = model.errors;
     const wordWithError = Object.keys(errors);
     let allErrors = 0;
     let maxErrorsWord = wordWithError[0];
@@ -85,6 +85,7 @@ export const dataController = {
   },
 
   setCurrentWord(): void {
+    console.log(model.data.words, model.data.numberOfQuestion);
     const currentWord = model.data.words[model.data.numberOfQuestion];
     model.data.currentWord = {
       word: currentWord.word,
@@ -110,22 +111,9 @@ export const dataController = {
   },
 
   clearAll(): void {
-    model.data ={
-      words: [],
-      currentWord: {
-        word: "",
-        randomizeWord: [],
-        nextLetter: "",
-      },
-      numberOfQuestion: 0,
-    },
-
-    model.statistic = {
-      errors: 0,
-      answers: 0,
-      maxErrorsWord: ""
-    };
-
+    model.data = JSON.parse(JSON.stringify(initialModel.data));
+    model.statistic = JSON.parse(JSON.stringify(initialModel.statistic));
+    model.errors = {};
     localStorage.clear();
   },
 };

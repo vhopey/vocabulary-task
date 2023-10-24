@@ -1,4 +1,4 @@
-import { model, errors } from "../model";
+import { model } from "../model";
 import { dataController, gameController } from "../controllers";
 import { Button } from "./components/Button";
 import { getElementById } from "../utils";
@@ -25,7 +25,7 @@ export const Game = {
     if (target && target.tagName === listenerTagName) {
       gameController.checkAnswer(target);
 
-      if (errors[model.data.currentWord.word] >= 3) {
+      if (model.errors[model.data.currentWord.word] >= 3) {
         gameController.showAnswer();
       } else if (Array.from(letters.childNodes).length === 0) {
         dataController.setAnswers();
@@ -44,7 +44,7 @@ export const Game = {
       gameController.pushError(null);
     }
 
-    if (errors[model.data.currentWord.word] >= 3) {
+    if (model.errors[model.data.currentWord.word] >= 3) {
       gameController.showAnswer();
     } else if (Array.from(letters.childNodes).length === 0) {
       dataController.setAnswers();

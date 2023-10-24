@@ -1,4 +1,4 @@
-import { model, errors } from "../model";
+import { model } from "../model";
 import { dataController } from "./data";
 import { Button, Game, Statistic, UnsavedChanges } from "../views";
 import { getElementById } from "../utils";
@@ -53,7 +53,7 @@ export const gameController = {
     //move to game view => render answer?
     answers.innerHTML = `${word
       .split("")
-      .map((item) => Button(item, ButtonsEnum.error))
+      .map((item: string) => Button(item, ButtonsEnum.error))
       .join("")}`;
     letters.innerHTML = "";
 
@@ -63,6 +63,7 @@ export const gameController = {
   },
 
   pushError(target: HTMLElement | null): void {
+    const errors = model.errors;
     const { word: currentWord } = dataController.getCurrentWord();
 
     if (target) {
