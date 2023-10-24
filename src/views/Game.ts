@@ -13,7 +13,7 @@ export const Game = {
     letters.addEventListener("click", this.letterClickListener);
     document.addEventListener("keydown", this.letterKeyboardListener);
     // check close page
-    window.addEventListener('beforeunload', ()=> {
+    window.addEventListener("beforeunload", () => {
       dataController.saveDataToLocalStorage();
     });
   },

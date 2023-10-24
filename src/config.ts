@@ -16,7 +16,7 @@ export const mockWords: MockWordsType = [
   "sun",
   "symbol",
   "button",
-  "software"
+  "software",
 ];
 
 export const config: ConfigType = {

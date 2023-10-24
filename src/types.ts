@@ -23,5 +23,5 @@ export enum ElementsIdsEnum {
   tryAgainButton = "try_again_btn",
   questionNumber = "current_question_number",
   gameContainer = "game",
-  questionsNumbers = "questions_numbers"
+  questionsNumbers = "questions_numbers",
 }

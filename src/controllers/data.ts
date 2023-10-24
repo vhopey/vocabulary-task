@@ -28,7 +28,7 @@ export const dataController = {
   checkSavedData(): boolean {
     const hasSavedData = localStorage.getItem("hasSavedData");
 
-    if(hasSavedData && hasSavedData === "true") {
+    if (hasSavedData && hasSavedData === "true") {
       return true;
     }
 
@@ -38,7 +38,7 @@ export const dataController = {
   getSavedData(): void {
     const storageModel = localStorage.getItem("model");
 
-    if(storageModel) {
+    if (storageModel) {
       model.data = JSON.parse(storageModel).data;
       model.statistic = JSON.parse(storageModel).statistic;
     }

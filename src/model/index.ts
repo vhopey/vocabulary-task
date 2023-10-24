@@ -9,14 +9,14 @@ interface ModelInterface {
       nextLetter: string;
     };
     numberOfQuestion: number;
-  },
+  };
   statistic: {
     errors: number;
     answers: number;
     maxErrorsWord: string;
-  },
-  errors: {}
-};
+  };
+  errors: {};
+}
 
 export const initialModel: ModelInterface = {
   data: {
@@ -31,10 +31,9 @@ export const initialModel: ModelInterface = {
   statistic: {
     errors: 0,
     answers: 0,
-    maxErrorsWord: ""
+    maxErrorsWord: "",
   },
-  errors: {}
+  errors: {},
 };
 
 export const model = JSON.parse(JSON.stringify(initialModel));
-
