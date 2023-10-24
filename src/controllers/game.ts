@@ -12,22 +12,25 @@ export const gameController = {
 
   checkAnswer(target: HTMLElement): void {
     const answers = getElementById(ElementsIdsEnum.answers);
-    const currentWord = dataController.getCurrentWord();
+    const currentWord = dataController.currentWord;
 
     if (target.innerText === currentWord.nextLetter) {
       this.pushAnswer(target);
-      dataController.setNextLetter(answers.childNodes.length);
+      dataController.nextLetter = answers.childNodes.length;
     } else {
       this.pushError(target);
     }
   },
 
-  nextLevel(): void {
-    dataController.setCountOfWord();
-    const words = dataController.getWordList();
-    const numberOfQuestion = dataController.getNumberOfQuestion();
+  addAnswer(): void {
+    dataController.answers = dataController.answers + 1;
+  },
 
-    if (words[numberOfQuestion]) {
+  nextLevel(): void {
+    dataController.numberOfQuestion = dataController.numberOfQuestion + 1;
+    const words = dataController.wordList;
+
+    if (words[dataController.numberOfQuestion]) {
       Game.render();
     } else {
       Statistic.init();
@@ -55,7 +58,7 @@ export const gameController = {
 
   pushError(target: HTMLElement | null): void {
     const errors = model.errors;
-    const { word: currentWord } = dataController.getCurrentWord();
+    const { word: currentWord } = dataController.currentWord;
 
     if (target) {
       target.classList.add(ButtonsEnum.error);
@@ -90,7 +93,7 @@ export const gameController = {
 
   pushAnswer(target: HTMLElement): void {
     const answers = getElementById(ElementsIdsEnum.answers);
-    const { nextLetter: correctLetter } = dataController.getCurrentWord();
+    const { nextLetter: correctLetter } = dataController.currentWord;
 
     target.classList.add(ButtonsEnum.success);
     target.remove();
@@ -107,5 +110,9 @@ export const gameController = {
     statistic.innerHTML = "";
     statistic.classList.add("hidden");
     gameBlock.classList.remove("hidden");
+  },
+
+  pushStatistic(): void {
+    dataController.statistic = dataController.errorsList;
   },
 };

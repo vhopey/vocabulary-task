@@ -12,7 +12,7 @@ export const Statistic = {
     letters.removeEventListener("click", Game.letterClickListener);
     document.removeEventListener("keydown", Game.letterKeyboardListener);
 
-    dataController.setStatistic();
+    gameController.pushStatistic();
     gameBlock.classList.add("hidden");
     statistic.classList.remove("hidden");
     statistic.innerHTML += `${Statistic.render()}`;
@@ -24,7 +24,7 @@ export const Statistic = {
   },
 
   render() {
-    const { answers, errors, maxErrorsWord } = dataController.getStatistic();
+    const { answers, errors, maxErrorsWord } = dataController.statistic;
 
     return `<div class="lead mb-1 statistic">
       <h2 class="mb-5">Statistic</h2>

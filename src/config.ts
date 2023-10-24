@@ -7,16 +7,16 @@ export type ConfigType = {
 
 export const mockWords: MockWordsType = [
   "apple",
-  "function",
-  "timeout",
+  // "function",
+  // "timeout",
   "task",
-  "application",
+  // "application",
   "data",
-  "tragedy",
+  // "tragedy",
   "sun",
-  "symbol",
-  "button",
-  "software",
+  // "symbol",
+  // "button",
+  // "software",
 ];
 
 export const config: ConfigType = {

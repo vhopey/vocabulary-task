@@ -12,10 +12,6 @@ export const Game = {
 
     letters.addEventListener("click", this.letterClickListener);
     document.addEventListener("keydown", this.letterKeyboardListener);
-    // check close page
-    window.addEventListener("beforeunload", () => {
-      dataController.saveDataToLocalStorage();
-    });
   },
 
   letterClickListener(event: Event) {
@@ -28,7 +24,7 @@ export const Game = {
       if (model.errors[model.data.currentWord.word] >= 3) {
         gameController.showAnswer();
       } else if (Array.from(letters.childNodes).length === 0) {
-        dataController.setAnswers();
+        gameController.addAnswer();
         gameController.nextLevel();
       }
     }
@@ -47,7 +43,7 @@ export const Game = {
     if (model.errors[model.data.currentWord.word] >= 3) {
       gameController.showAnswer();
     } else if (Array.from(letters.childNodes).length === 0) {
-      dataController.setAnswers();
+      gameController.addAnswer();
       gameController.nextLevel();
     }
   },
@@ -58,7 +54,9 @@ export const Game = {
     const questionNumber = getElementById(ElementsIdsEnum.questionNumber);
 
     questionNumber.innerHTML = (model.data.numberOfQuestion + 1).toString();
-    dataController.setCurrentWord();
+    const currentWord =
+      dataController.wordList[dataController.numberOfQuestion];
+    dataController.currentWord = currentWord;
     answers.innerHTML = "";
 
     for (const item of model.data.currentWord.randomizeWord) {

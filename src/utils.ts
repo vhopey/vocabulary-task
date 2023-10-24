@@ -1,3 +1,6 @@
+import { MockWordsType, ListWordsType } from "./types";
+import { config } from "./config";
+
 export const getElementById = (id: string): HTMLElement => {
   let block = document.getElementById(id);
 
