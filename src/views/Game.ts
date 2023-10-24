@@ -20,13 +20,9 @@ export const Game = {
 
     if (target && target.tagName === listenerTagName) {
       gameController.checkAnswer(target, answers);
-
-      if (dataController.errorsList[dataController.currentWord.word] >= 3) {
-        gameController.showAnswer();
-      } else if (Array.from(letters.childNodes).length === 0) {
-        gameController.addAnswer();
-        gameController.nextLevel();
-      }
+      gameController.checkNextLetter(
+        Array.from(letters.childNodes).length === 0,
+      );
     }
   },
 
@@ -41,12 +37,7 @@ export const Game = {
       gameController.pushError(null);
     }
 
-    if (dataController.errorsList[dataController.currentWord.word] >= 3) {
-      gameController.showAnswer();
-    } else if (Array.from(letters.childNodes).length === 0) {
-      gameController.addAnswer();
-      gameController.nextLevel();
-    }
+    gameController.checkNextLetter(Array.from(letters.childNodes).length === 0);
   },
 
   pushLetterInContainer(target: HTMLElement): void {

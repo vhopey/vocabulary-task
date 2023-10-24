@@ -46,11 +46,22 @@ export const gameController = {
   },
 
   showAnswer() {
+    document.removeEventListener("keydown", Game.letterKeyboardListener);
     Game.renderAnswer();
 
     setTimeout(() => {
       gameController.nextLevel();
+      document.addEventListener("keydown", Game.letterKeyboardListener);
     }, 4000);
+  },
+
+  checkNextLetter(endWord: boolean) {
+    if (dataController.errorsList[dataController.currentWord.word] >= 3) {
+      gameController.showAnswer();
+    } else if (endWord) {
+      gameController.addAnswer();
+      gameController.nextLevel();
+    }
   },
 
   nextLevel(): void {
