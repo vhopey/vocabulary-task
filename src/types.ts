@@ -1,4 +1,4 @@
-export type MockDataType = Array<string>;
+export type MockWordsType = Array<string>;
 export type WordType = Array<string>;
 export type ListWordsType = Array<{
   word: string;

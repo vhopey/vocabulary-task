@@ -1,14 +1,14 @@
 import { model, initialModel } from "../model";
 import { config, mockWords } from "../config";
 import { getRandomizeArray } from "../utils";
-import { MockDataType, ListWordsType } from "../types";
+import { MockWordsType, ListWordsType } from "../types";
 
 export const dataController = {
   init(): void {
     model.data.words = this.getData(mockWords);
   },
 
-  getData(words: MockDataType): ListWordsType {
+  getData(words: MockWordsType): ListWordsType {
     const result: ListWordsType = [];
     const randomWords = getRandomizeArray(words).splice(0, config.questions);
 

@@ -1,6 +1,6 @@
 import { model } from "../model";
 import { dataController } from "./data";
-import { Button, Game, Statistic, UnsavedChanges } from "../views";
+import { Button, Game, Statistic } from "../views";
 import { getElementById } from "../utils";
 import { ButtonsEnum, ElementsIdsEnum } from "../types";
 
@@ -8,15 +8,6 @@ export const gameController = {
   init(): void {
     Game.init();
     Game.render();
-    // const hasSavedData = dataController.checkSavedData();
-
-    // if(hasSavedData) {
-    //   UnsavedChanges.init;
-    //   UnsavedChanges.render;
-    // } else {
-    //   Game.init();
-    //   Game.render();
-    // }
   },
 
   checkAnswer(target: HTMLElement): void {
