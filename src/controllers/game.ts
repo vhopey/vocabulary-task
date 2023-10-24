@@ -1,8 +1,6 @@
-import { model } from "../model";
 import { dataController } from "./data";
-import { Button, Game, Statistic } from "../views";
-import { getElementById } from "../utils";
-import { ButtonsEnum, ElementsIdsEnum } from "../types";
+import { Game, Statistic } from "../views";
+import { ButtonsEnum } from "../types";
 
 export const gameController = {
   init(): void {
@@ -10,54 +8,16 @@ export const gameController = {
     Game.render();
   },
 
-  checkAnswer(target: HTMLElement): void {
-    const answers = getElementById(ElementsIdsEnum.answers);
-    const currentWord = dataController.currentWord;
-
-    if (target.innerText === currentWord.nextLetter) {
-      this.pushAnswer(target);
-      dataController.nextLetter = answers.childNodes.length;
-    } else {
-      this.pushError(target);
-    }
-  },
-
   addAnswer(): void {
     dataController.answers = dataController.answers + 1;
   },
 
-  nextLevel(): void {
-    dataController.numberOfQuestion = dataController.numberOfQuestion + 1;
-    const words = dataController.wordList;
-
-    if (words[dataController.numberOfQuestion]) {
-      Game.render();
-    } else {
-      Statistic.init();
-      Statistic.render();
-      Statistic.tryAgainListening();
-    }
-  },
-
-  showAnswer(): void {
-    const letters = getElementById(ElementsIdsEnum.letters);
-    const answers = getElementById(ElementsIdsEnum.answers);
-    const word = model.data.currentWord.word;
-
-    //move to game view => render answer?
-    answers.innerHTML = `${word
-      .split("")
-      .map((item: string) => Button(item, ButtonsEnum.error))
-      .join("")}`;
-    letters.innerHTML = "";
-
-    setTimeout(() => {
-      this.nextLevel();
-    }, 4000);
+  pushStatistic(): void {
+    dataController.statistic = dataController.errorsList;
   },
 
   pushError(target: HTMLElement | null): void {
-    const errors = model.errors;
+    const errors = dataController.errorsList;
     const { word: currentWord } = dataController.currentWord;
 
     if (target) {
@@ -74,10 +34,43 @@ export const gameController = {
     }
   },
 
-  findTargetByKey(key: string): HTMLElement | null {
-    const lettersChilds = Array.from(
-      getElementById(ElementsIdsEnum.letters).childNodes,
-    );
+  checkAnswer(target: HTMLElement, answerContainer: HTMLElement): void {
+    const currentWord = dataController.currentWord;
+
+    if (target.innerText === currentWord.nextLetter) {
+      Game.pushLetterInContainer(target);
+      dataController.nextLetter = answerContainer.childNodes.length;
+    } else {
+      this.pushError(target);
+    }
+  },
+
+  showAnswer() {
+    Game.renderAnswer();
+
+    setTimeout(() => {
+      gameController.nextLevel();
+    }, 4000);
+  },
+
+  nextLevel(): void {
+    dataController.numberOfQuestion = dataController.numberOfQuestion + 1;
+    const words = dataController.wordList;
+
+    if (words[dataController.numberOfQuestion]) {
+      Game.render();
+    } else {
+      Statistic.init();
+      Statistic.render();
+      Statistic.tryAgainListening();
+    }
+  },
+
+  findTargetByKey(
+    key: string,
+    lettersContainer: HTMLElement,
+  ): HTMLElement | null {
+    const lettersChilds = Array.from(lettersContainer.childNodes);
 
     for (const item of lettersChilds) {
       const formatStr = item.textContent?.replace(/\s/g, "");
@@ -91,28 +84,10 @@ export const gameController = {
     return null;
   },
 
-  pushAnswer(target: HTMLElement): void {
-    const answers = getElementById(ElementsIdsEnum.answers);
-    const { nextLetter: correctLetter } = dataController.currentWord;
-
-    target.classList.add(ButtonsEnum.success);
-    target.remove();
-    answers.innerHTML += Button(correctLetter, ButtonsEnum.success);
-  },
-
   tryAgain(): void {
-    const gameBlock = getElementById(ElementsIdsEnum.gameContainer);
-    const statistic = getElementById(ElementsIdsEnum.statistic);
-
     dataController.clearAll();
     dataController.init();
     gameController.init();
-    statistic.innerHTML = "";
-    statistic.classList.add("hidden");
-    gameBlock.classList.remove("hidden");
-  },
-
-  pushStatistic(): void {
-    dataController.statistic = dataController.errorsList;
+    Statistic.returnToGame();
   },
 };

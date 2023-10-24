@@ -1,8 +1,7 @@
-import { model } from "../model";
 import { dataController, gameController } from "../controllers";
 import { Button } from "./components/Button";
 import { getElementById } from "../utils";
-import { ElementsIdsEnum } from "../types";
+import { ElementsIdsEnum, ButtonsEnum } from "../types";
 
 const listenerTagName = "BUTTON";
 
@@ -16,12 +15,13 @@ export const Game = {
 
   letterClickListener(event: Event) {
     const letters = getElementById(ElementsIdsEnum.letters);
+    const answers = getElementById(ElementsIdsEnum.answers);
     const target = event.target as HTMLElement; // fix
 
     if (target && target.tagName === listenerTagName) {
-      gameController.checkAnswer(target);
+      gameController.checkAnswer(target, answers);
 
-      if (model.errors[model.data.currentWord.word] >= 3) {
+      if (dataController.errorsList[dataController.currentWord.word] >= 3) {
         gameController.showAnswer();
       } else if (Array.from(letters.childNodes).length === 0) {
         gameController.addAnswer();
@@ -32,15 +32,16 @@ export const Game = {
 
   letterKeyboardListener(event: KeyboardEvent) {
     const letters = getElementById(ElementsIdsEnum.letters);
-    const target = gameController.findTargetByKey(event.key);
+    const answers = getElementById(ElementsIdsEnum.answers);
+    const target = gameController.findTargetByKey(event.key, letters);
 
     if (target && target.tagName === listenerTagName) {
-      gameController.checkAnswer(target);
+      gameController.checkAnswer(target, answers);
     } else {
       gameController.pushError(null);
     }
 
-    if (model.errors[model.data.currentWord.word] >= 3) {
+    if (dataController.errorsList[dataController.currentWord.word] >= 3) {
       gameController.showAnswer();
     } else if (Array.from(letters.childNodes).length === 0) {
       gameController.addAnswer();
@@ -48,18 +49,39 @@ export const Game = {
     }
   },
 
+  pushLetterInContainer(target: HTMLElement): void {
+    const answers = getElementById(ElementsIdsEnum.answers);
+    const { nextLetter: correctLetter } = dataController.currentWord;
+
+    target.classList.add(ButtonsEnum.success);
+    target.remove();
+    answers.innerHTML += Button(correctLetter, ButtonsEnum.success);
+  },
+
+  renderAnswer() {
+    const letters = getElementById(ElementsIdsEnum.letters);
+    const answers = getElementById(ElementsIdsEnum.answers);
+    const word = dataController.currentWord.word;
+
+    answers.innerHTML = `${word
+      .split("")
+      .map((item: string) => Button(item, ButtonsEnum.error))
+      .join("")}`;
+    letters.innerHTML = "";
+  },
+
   render() {
     const letters = getElementById(ElementsIdsEnum.letters);
     const answers = getElementById(ElementsIdsEnum.answers);
     const questionNumber = getElementById(ElementsIdsEnum.questionNumber);
 
-    questionNumber.innerHTML = (model.data.numberOfQuestion + 1).toString();
+    questionNumber.innerHTML = (dataController.numberOfQuestion + 1).toString();
     const currentWord =
       dataController.wordList[dataController.numberOfQuestion];
     dataController.currentWord = currentWord;
     answers.innerHTML = "";
 
-    for (const item of model.data.currentWord.randomizeWord) {
+    for (const item of dataController.currentWord.randomizeWord) {
       letters.innerHTML += Button(item);
     }
   },

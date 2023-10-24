@@ -32,7 +32,6 @@ export const dataController = {
   },
 
   set statistic(errors) {
-    console.log(errors);
     const wordWithError = Object.keys(errors);
     let allErrors = 0;
     let maxErrorsWord = wordWithError[0];

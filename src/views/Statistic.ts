@@ -23,6 +23,14 @@ export const Statistic = {
     tryAgainButton.addEventListener("click", gameController.tryAgain);
   },
 
+  returnToGame() {
+    const gameBlock = getElementById(ElementsIdsEnum.gameContainer);
+    const statistic = getElementById(ElementsIdsEnum.statistic);
+    statistic.innerHTML = "";
+    statistic.classList.add("hidden");
+    gameBlock.classList.remove("hidden");
+  },
+
   render() {
     const { answers, errors, maxErrorsWord } = dataController.statistic;
 
