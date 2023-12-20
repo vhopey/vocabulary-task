@@ -1,26 +1,26 @@
-# Тестовое на вакансию Frontend (React / Vue.js) Developer
+# English vocalbulary trainer
 
-[Ссылка на описание и требования](https://www.notion.so/fundraiseup/4c2121dc756f41d9abbe569d9d36d1f8)
+[Task](https://www.notion.so/fundraiseup/4c2121dc756f41d9abbe569d9d36d1f8)
 
-### Установка зависимостей
+### Install dependencies
 
 ```
 npm i
 ```
 
-### Запуск dev сервера
+### Start dev server
 
 ```
 npm run dev
 ```
 
-### Сборка (production)
+### Build (production)
 
 ```
 npm run build
 ```
 
-### Автоформатирование (prettier)
+### Prettier fix
 
 ```
 npm run prettier-fix
